@@ -133,6 +133,8 @@ SpeechRecognizer* staticRecognizer;
     [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
 //    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_STREAM forKey:@"audio_source"];
     [_iFlySpeechRecognizer setParameter: @"audio_source"  forKey:IFLY_AUDIO_SOURCE_STREAM];
+    [_iFlySpeechRecognizer setParameter: @"asr_audio_path"  forKey:@"123"];
+
 
     //设置音频数据模式为音频流
     BOOL ret  = [_iFlySpeechRecognizer startListening];

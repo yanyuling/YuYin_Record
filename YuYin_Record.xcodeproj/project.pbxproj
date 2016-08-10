@@ -24,10 +24,10 @@
 		1B0049DB1D2D4BB5009A65D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0049DA1D2D4BB5009A65D8 /* QuartzCore.framework */; };
 		1B0049DD1D2D4BC5009A65D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0049DC1D2D4BC5009A65D8 /* UIKit.framework */; };
 		1B0049DF1D2D4BD3009A65D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0049DE1D2D4BD3009A65D8 /* CoreGraphics.framework */; };
-		1B06ED521D2FE74F008E358B /* IATConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06ED4F1D2FE74F008E358B /* IATConfig.m */; settings = {ASSET_TAGS = (); }; };
-		1B06ED531D2FE74F008E358B /* ISRDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06ED511D2FE74F008E358B /* ISRDataHelper.m */; settings = {ASSET_TAGS = (); }; };
-		1B298FDA1D33D48400A1A320 /* VodioRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B298FD91D33D48400A1A320 /* VodioRecordViewController.m */; settings = {ASSET_TAGS = (); }; };
-		1B298FDE1D33E0F600A1A320 /* SpeechRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B298FDD1D33E0F600A1A320 /* SpeechRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		1B060DDD1D3D1951005943F2 /* IATConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B060DD81D3D1951005943F2 /* IATConfig.m */; settings = {ASSET_TAGS = (); }; };
+		1B060DDE1D3D1951005943F2 /* ISRDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B060DDA1D3D1951005943F2 /* ISRDataHelper.m */; settings = {ASSET_TAGS = (); }; };
+		1B060DDF1D3D1951005943F2 /* SpeechRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B060DDC1D3D1951005943F2 /* SpeechRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		1B060DE21D3D19D7005943F2 /* AudioListTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B060DE11D3D19D7005943F2 /* AudioListTabViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,14 +73,14 @@
 		1B0049DA1D2D4BB5009A65D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1B0049DC1D2D4BC5009A65D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1B0049DE1D2D4BD3009A65D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1B06ED4E1D2FE74F008E358B /* IATConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATConfig.h; sourceTree = "<group>"; };
-		1B06ED4F1D2FE74F008E358B /* IATConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATConfig.m; sourceTree = "<group>"; };
-		1B06ED501D2FE74F008E358B /* ISRDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISRDataHelper.h; sourceTree = "<group>"; };
-		1B06ED511D2FE74F008E358B /* ISRDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISRDataHelper.m; sourceTree = "<group>"; };
-		1B298FD81D33D48400A1A320 /* VodioRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VodioRecordViewController.h; sourceTree = "<group>"; };
-		1B298FD91D33D48400A1A320 /* VodioRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VodioRecordViewController.m; sourceTree = "<group>"; };
-		1B298FDC1D33E0F600A1A320 /* SpeechRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognizer.h; sourceTree = "<group>"; };
-		1B298FDD1D33E0F600A1A320 /* SpeechRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognizer.m; sourceTree = "<group>"; };
+		1B060DD71D3D1951005943F2 /* IATConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATConfig.h; sourceTree = "<group>"; };
+		1B060DD81D3D1951005943F2 /* IATConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATConfig.m; sourceTree = "<group>"; };
+		1B060DD91D3D1951005943F2 /* ISRDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISRDataHelper.h; sourceTree = "<group>"; };
+		1B060DDA1D3D1951005943F2 /* ISRDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISRDataHelper.m; sourceTree = "<group>"; };
+		1B060DDB1D3D1951005943F2 /* SpeechRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognizer.h; sourceTree = "<group>"; };
+		1B060DDC1D3D1951005943F2 /* SpeechRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognizer.m; sourceTree = "<group>"; };
+		1B060DE01D3D19D7005943F2 /* AudioListTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioListTabViewController.h; sourceTree = "<group>"; };
+		1B060DE11D3D19D7005943F2 /* AudioListTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioListTabViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,15 +144,10 @@
 				1B00499D1D2D3C8B009A65D8 /* AppDelegate.h */,
 				1B00499E1D2D3C8B009A65D8 /* AppDelegate.m */,
 				1B0049C71D2D3CC3009A65D8 /* RootViewController.h */,
-				1B298FDC1D33E0F600A1A320 /* SpeechRecognizer.h */,
-				1B298FDD1D33E0F600A1A320 /* SpeechRecognizer.m */,
-				1B06ED4E1D2FE74F008E358B /* IATConfig.h */,
-				1B06ED4F1D2FE74F008E358B /* IATConfig.m */,
-				1B06ED501D2FE74F008E358B /* ISRDataHelper.h */,
-				1B06ED511D2FE74F008E358B /* ISRDataHelper.m */,
+				1B060DE01D3D19D7005943F2 /* AudioListTabViewController.h */,
+				1B060DE11D3D19D7005943F2 /* AudioListTabViewController.m */,
 				1B0049C81D2D3CC3009A65D8 /* RootViewController.m */,
-				1B298FD81D33D48400A1A320 /* VodioRecordViewController.h */,
-				1B298FD91D33D48400A1A320 /* VodioRecordViewController.m */,
+				1B060DD61D3D1951005943F2 /* recordConfig */,
 				1B0049A01D2D3C8B009A65D8 /* Assets.xcassets */,
 				1B0049A21D2D3C8B009A65D8 /* LaunchScreen.storyboard */,
 				1B0049A51D2D3C8B009A65D8 /* Info.plist */,
@@ -195,6 +190,19 @@
 				1B0049BB1D2D3C8B009A65D8 /* Info.plist */,
 			);
 			path = YuYin_RecordUITests;
+			sourceTree = "<group>";
+		};
+		1B060DD61D3D1951005943F2 /* recordConfig */ = {
+			isa = PBXGroup;
+			children = (
+				1B060DD71D3D1951005943F2 /* IATConfig.h */,
+				1B060DD81D3D1951005943F2 /* IATConfig.m */,
+				1B060DD91D3D1951005943F2 /* ISRDataHelper.h */,
+				1B060DDA1D3D1951005943F2 /* ISRDataHelper.m */,
+				1B060DDB1D3D1951005943F2 /* SpeechRecognizer.h */,
+				1B060DDC1D3D1951005943F2 /* SpeechRecognizer.m */,
+			);
+			path = recordConfig;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,11 +339,11 @@
 			files = (
 				1B00499F1D2D3C8B009A65D8 /* AppDelegate.m in Sources */,
 				1B00499C1D2D3C8B009A65D8 /* main.m in Sources */,
-				1B06ED521D2FE74F008E358B /* IATConfig.m in Sources */,
-				1B06ED531D2FE74F008E358B /* ISRDataHelper.m in Sources */,
+				1B060DE21D3D19D7005943F2 /* AudioListTabViewController.m in Sources */,
+				1B060DDD1D3D1951005943F2 /* IATConfig.m in Sources */,
+				1B060DDE1D3D1951005943F2 /* ISRDataHelper.m in Sources */,
 				1B0049C91D2D3CC3009A65D8 /* RootViewController.m in Sources */,
-				1B298FDE1D33E0F600A1A320 /* SpeechRecognizer.m in Sources */,
-				1B298FDA1D33D48400A1A320 /* VodioRecordViewController.m in Sources */,
+				1B060DDF1D3D1951005943F2 /* SpeechRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

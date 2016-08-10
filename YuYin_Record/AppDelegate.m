@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #include "RootViewController.h"
 #import "iflyMSC/IFlyMSC.h"
-#import "VodioRecordViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -22,7 +21,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    VodioRecordViewController* rootCtr = [[VodioRecordViewController alloc] init ];
+    RootViewController* rootCtr = [[RootViewController alloc] init ];
     self.window.rootViewController = rootCtr;
     [self.window makeKeyAndVisible];
     [self initSDKInfo];

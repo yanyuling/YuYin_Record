@@ -13,39 +13,37 @@
 #import "IATConfig.h"
 #include "ISRDataHelper.h"
 
-@interface RootViewController () <IFlySpeechRecognizerDelegate,IFlySpeechRecognizerDelegate,AVAudioPlayerDelegate>
+
+@interface RootViewController () <IFlySpeechRecognizerDelegate,IFlySpeechRecognizerDelegate>
 @property(nonatomic,strong) UIButton* recordBtn;
 @property(nonatomic,strong) UIButton* stopBtn;
 @property(nonatomic,strong) UIButton* streamRecognise;
-@property(nonatomic,strong) AVAudioPlayer* player;
 @property(nonatomic,weak) IFlySpeechRecognizer* iFlySpeechRecognizer;
 @property(nonatomic,strong)NSString* pcmFilePath;
-@property(nonatomic,assign)BOOL isStop;
+@property(nonatomic,assign)BOOL isRecording;
 @property(nonatomic,strong)NSString* resultStr;
 @property(nonatomic,strong) AVAudioRecorder* recorder;
+@property(nonatomic,strong) NSDateFormatter* formatter; //格式化日期
+@property(nonatomic,strong)NSString* cachePath;
 @end
 
 @implementation RootViewController
-
+#pragma liftCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
-   
-     [self initUIParams];
+    [self initUIParams];
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"%s",__func__);
-    
     [_iFlySpeechRecognizer cancel]; //取消识别
     [_iFlySpeechRecognizer setDelegate:nil];
     [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
-    
     [super viewWillDisappear:animated];
 }
+
 
 -(void)initUIParams{
     if (self.recordBtn == nil) {
@@ -71,74 +69,48 @@
         [self.view addSubview:self.streamRecognise];
         [self.streamRecognise addTarget:self action:@selector(audioStreamBtnHandler) forControlEvents:UIControlEventTouchUpInside];
     }
-  
-    
-}
--(void)initAudioRecorder{
-    /*
-    //文件存放路径
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSString *savePath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    savePath=[savePath stringByAppendingPathComponent:[formatter stringFromDate:[NSDate date]]];
-    NSLog(@"initAudioRecorder : %@",savePath);
-    NSURL *fileName=[NSURL fileURLWithPath:savePath];
-    
-    //settingDic
-    NSMutableDictionary *dicM=[NSMutableDictionary dictionary];
-    //设置录音格式
-    [dicM setObject:@(kAudioFormatLinearPCM) forKey:AVFormatIDKey];
-    //设置录音采样率，8000是电话采样率，对于一般录音已经够了
-    [dicM setObject:@(8000) forKey:AVSampleRateKey];
-    //设置通道,这里采用单声道
-    [dicM setObject:@(1) forKey:AVNumberOfChannelsKey];
-    //每个采样点位数,分为8、16、24、32
-    [dicM setObject:@(8) forKey:AVLinearPCMBitDepthKey];
-    //是否使用浮点数采样
-    [dicM setObject:@(YES) forKey:AVLinearPCMIsFloatKey];
-    
-    //error
-    NSError* error = nil;
-    
-    _recorder = [[AVAudioRecorder alloc] initWithURL:fileName settings:dicM error:&error];
-    _recorder.delegate = self;
-    [_recorder prepareToRecord];
-    [_recorder record];
-     */
     
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
--(IFlySpeechRecognizer*)iFlySpeechRecognizer{
-    if (_iFlySpeechRecognizer == nil) {
-        _iFlySpeechRecognizer =  [IFlySpeechRecognizer sharedInstance];
-    }
-    return _iFlySpeechRecognizer;
-}
+
 
 -(void)stopCallback{
     [_iFlySpeechRecognizer stopListening];
-//    [self audioStreamBtnHandler];
-    self.isStop = YES;
+    self.isRecording = NO;
     NSLog(@"停止录制");
     //然后开始播放音频
 }
 
 -(void)initFileSavePath{
-    //demo录音文件保存路径
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachePath = [paths objectAtIndex:0];
-    _pcmFilePath = [NSString stringWithFormat:@"%@",[cachePath stringByAppendingPathComponent:@"asr.pcm"]];
+ 
+    if (_formatter == nil) {
+        _formatter = [[NSDateFormatter alloc] init];
+    }
     
-    NSLog(@"_pcmFilePath: %@",_pcmFilePath);
-   
+    [_formatter setDateFormat:@"yyyy-MM-dd"];
+    _pcmFilePath= [_formatter stringFromDate:[NSDate date]];
+    NSLog(@"_pcmFilePath1:  %@",_pcmFilePath);
+    
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:_pcmFilePath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:_pcmFilePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSLog(@"_pcmFilePath2:  %@",_pcmFilePath);
+    
+    [_formatter setDateFormat:@"HH-mm-ss"];
+    _pcmFilePath=[_pcmFilePath stringByAppendingString:[NSString stringWithFormat:@"_%@.pcm",[_formatter stringFromDate:[NSDate date]]]];
+    NSLog(@"_pcmFilePath3:  %@",_pcmFilePath);
+    
 }
+
 -(void)recordCallback{
 
-    NSLog(@"recordCallback:  %s[IN]",__func__);
-    self.isStop = NO;
+    if (self.isRecording == YES) {
+        [self stopCallback];
+        return;
+    }
+    self.isRecording = YES;
     [self initFileSavePath];
     if(_iFlySpeechRecognizer == nil)
     {
@@ -155,7 +127,7 @@
     
     //保存录音文件，保存在sdk工作路径中，如未设置工作路径，则默认保存在library/cache下
     [_iFlySpeechRecognizer setParameter:_pcmFilePath forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
-    
+
     [_iFlySpeechRecognizer setDelegate:self];
     
     BOOL ret = [_iFlySpeechRecognizer startListening];
@@ -165,32 +137,16 @@
     }else{
         NSLog(@"启动识别服务失败，请稍后重试");
     }
-
-    
-    
 }
 
-/*!
- *  识别结果回调
- *    在进行语音识别过程中的任何时刻都有可能回调此函数，你可以根据errorCode进行相应的处理，
- *  当errorCode没有错误时，表示此次会话正常结束；否则，表示此次会话有错误发生。特别的当调用
- *  `cancel`函数时，引擎不会自动结束，需要等到回调此函数，才表示此次会话结束。在没有回调此函数
- *  之前如果重新调用了`startListenging`函数则会报错误。
- *
- *  @param errorCode 错误描述
- */
 - (void) onError:(IFlySpeechError *) errorCode{
     NSLog(@"onError: %@",errorCode.errorDesc);
     NSLog(@"onError: %d",errorCode.errorCode);
     NSLog(@"onError: %d",errorCode.errorType);
 }
 
-
 -(void)initRecognizer
 {
-    NSLog(@"%s",__func__);
-    
-    
     //单例模式，无UI的实例
     if (_iFlySpeechRecognizer == nil) {
         _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance];
@@ -225,9 +181,6 @@
     }
     //设置是否返回标点符号
     [_iFlySpeechRecognizer setParameter:instance.dot forKey:[IFlySpeechConstant ASR_PTT]];
-    
-    
-    
 }
 
 
@@ -244,17 +197,16 @@
     
     if( [_iFlySpeechRecognizer isListening])
     {
-        //        [_popUpView showText: @"启动识别服务失败，请稍后重试"];//可能是上次请求未结束，暂不支持多路并发
         return;
     }
     
     NSFileManager *fm = [NSFileManager defaultManager];
-    
-    if(!_pcmFilePath || [_pcmFilePath length] == 0) {
+    NSString* tmpPath = [_cachePath stringByAppendingString:[NSString stringWithFormat:@"/%@",_pcmFilePath]];
+    if(!tmpPath || [tmpPath length] == 0) {
         return;
     }
     
-    if (![fm fileExistsAtPath:_pcmFilePath]) {
+    if (![fm fileExistsAtPath:tmpPath]) {
         NSLog(@"文件不存在");
         return;
     }
@@ -294,12 +246,9 @@
         [data getBytes:part1Bytes range:range];
         NSData * part1 = [NSData dataWithBytes:part1Bytes length:audioLen];
         
-       
         [self playAudioWithData:[NSData dataWithData:part1]];
-        
         int ret = [self.iFlySpeechRecognizer writeAudio:part1];//写入音频，让SDK识别
         free(part1Bytes);
-        
         
         if(!ret) {     //检测数据发送是否正常
             NSLog(@"%s[ERROR]",__func__);
@@ -319,22 +268,22 @@
     [_iFlySpeechRecognizer writeAudio:part3];
     free(part3Bytes);
     [_iFlySpeechRecognizer stopListening];//音频数据写入完成，进入等待状态
-    NSLog(@"%s[OUT]",__func__);
+
 }
 
 -(void)playAudioWithData:(NSData*)data{
-    if (self.player == nil) {
-        NSError *err = [[NSError alloc]init];
-        
-        self.player = [[AVAudioPlayer alloc]initWithData:data error:&err];
-        if (err)
-        {
-            NSLog(@"%@",err.localizedDescription);
-        }
-         self.player.delegate = self;
-    }
-    
-    [self.player play];
+//    if (self.player == nil) {
+//        NSError *err = [[NSError alloc]init];
+//        
+//        self.player = [[AVAudioPlayer alloc]initWithData:data error:&err];
+//        if (err)
+//        {
+//            NSLog(@"%@",err.localizedDescription);
+//        }
+//         self.player.delegate = self;
+//    }
+//    
+//    [self.player play];
     
 }
 #pragma mark speechRecordDelegate
@@ -349,7 +298,7 @@
 //音量回调函数volume 0－30
 - (void) onVolumeChanged: (int)volume
 {
-    if (self.isStop == YES) {
+    if (self.isRecording == NO) {
         return;
     }
 //    NSLog(@"音量：%d",volume);
@@ -365,7 +314,6 @@
 //停止录音回调
 - (void) onEndOfSpeech
 {
-    NSLog(@"onEndOfSpeech");
 }
 
 /**
@@ -398,11 +346,15 @@
     NSLog( @"正在上传...");
 }
 
+
+#pragma --getter and setter
+
+-(NSString*)cachePath{
+    if (_cachePath == nil){
+        _cachePath =  [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSLog(@"_cachePath:  %@",_cachePath);
+    }
+    return _cachePath;
+}
+
 @end
-
-
-#pragma --AVAudioRecorderDelegate
-
-//- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-//    
-//}
